@@ -22,7 +22,7 @@ struct ContentView: View {
             return Int.random(in: 1...self.rawValue)
         }
     }
-
+    
     @State private var resultMessage = ""
     
     var body: some View {
@@ -41,37 +41,17 @@ struct ContentView: View {
                 .frame(height: 150)
             
             Spacer()
-            Group {
-                HStack {
-                    Button("\(Dice.four.rawValue)-sided") {
-                        resultMessage = "You rolled a \(Dice.four.roll()) on a \(Dice.four.rawValue)-sided dice"
-                    }
-                    Button("\(Dice.six.rawValue)-sided") {
-                        resultMessage = "You rolled a \(Dice.six.roll()) on a \(Dice.six.rawValue)-sided dice"
-                    }
-                    Button("\(Dice.eight.rawValue)-sided") {
-                        resultMessage = "You rolled a \(Dice.eight.roll()) on a \(Dice.eight.rawValue)-sided dice"
-                    }
-                }
-                HStack {
-                    Button("\(Dice.ten.rawValue)-sided") {
-                        resultMessage = "You rolled a \(Dice.ten.roll()) on a \(Dice.ten.rawValue)-sided dice"
-                    }
-                    Button("\(Dice.twelve.rawValue)-sided") {
-                        resultMessage = "You rolled a \(Dice.twelve.roll()) on a \(Dice.twelve.rawValue)-sided dice"
-                    }
-                    Button("\(Dice.twenty.rawValue)-sided") {
-                        resultMessage = "You rolled a \(Dice.twenty.roll()) on a \(Dice.twenty.rawValue)-sided dice"
-                    }
-                }
-                HStack {
-                    Button("\(Dice.hundred.rawValue)-sided") {
-                        resultMessage = "You rolled a \(Dice.hundred.roll()) on a \(Dice.hundred.rawValue)-sided dice"
-                    }
+            
+            
+            ForEach(Dice.allCases, id: \.self) { dice in
+                Button("\(dice.rawValue)-sided") {
+                    resultMessage = "You rolled a \(dice.roll()) on a \(dice.rawValue)-sided dice"
                 }
             }
+            
             .buttonStyle(.borderedProminent)
             .tint(.red)
+            
         }
         .padding()
     }
